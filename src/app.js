@@ -136,3 +136,4 @@ const currentImage =
 	'https://assets.codepen.io/21542/TileEditorSpritesheet.2x_2.png';
 
 puzzleImage.src = currentImage;
+puzzleImage.setAttribute('crossOrigin', 'Anonymous');
