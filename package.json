@@ -4,13 +4,8 @@
 	"browserslist": "> 0.5%, last 2 versions, not dead",
 	"source": "src/index.html",
 	"scripts": {
-		"start": "del docs /q && parcel",
-		"build": "del docs /q && parcel build"
-	},
-	"targets": {
-		"default": {
-			"distDir": "./docs"
-		}
+		"start": "del docs /q && parcel --dist-dir ./docs --public-url ./",
+		"build": "del docs /q && parcel build --dist-dir ./docs --public-url ./"
 	},
 	"devDependencies": {
 		"parcel": "^2.5.0"
