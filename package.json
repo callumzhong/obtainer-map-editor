@@ -1,0 +1,13 @@
+{
+	"name": "obtainer-map-editor",
+	"version": "1.0.0",
+	"browserslist": "> 0.5%, last 2 versions, not dead",
+	"source": "src/index.html",
+	"scripts": {
+		"start": "del dist /q && parcel",
+		"build": "del dist /q && parcel build"
+	},
+	"devDependencies": {
+		"parcel": "^2.5.0"
+	}
+}
