@@ -1,0 +1,77 @@
+*, :before, :after {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  background: #c5ffde;
+  justify-content: space-between;
+  padding: 1rem;
+  display: flex;
+  overflow: hidden;
+}
+
+img {
+  display: inline-block;
+}
+
+.puzzle-container {
+  margin: 0 auto;
+  position: relative;
+  overflow-y: auto;
+}
+
+.puzzle-target {
+  outline: 3px solid #0ff;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.main {
+  width: 80vw;
+  flex-direction: column;
+  display: flex;
+}
+
+.canvas-container {
+  margin-bottom: 1rem;
+  overflow-y: scroll;
+}
+
+.canvas-container canvas {
+  zoom: 1;
+  background: #fff;
+  margin: 0 auto;
+  display: block;
+  box-shadow: 0 0 1px 1px #00000080;
+}
+
+.controller {
+  justify-content: space-between;
+  padding: 0 1rem;
+  display: flex;
+}
+
+.controller__layer {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.controller__layer li {
+  line-height: 1.5;
+}
+
+.controller__layer button {
+  color: #00000080;
+  background: none;
+  border: none;
+}
+
+.controller__layer button:active, .controller__layer button.active {
+  color: #000;
+}
+
+/*# sourceMappingURL=index.b721b42c.css.map */

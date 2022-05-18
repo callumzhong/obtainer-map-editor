@@ -1,12 +1,12 @@
+import grassland_tiles from './assets/grassland_tiles.png';
+
 const canvas = document.querySelector('canvas');
 const puzzleContainer = document.querySelector('.puzzle-container');
 const puzzleTarget = document.querySelector('.puzzle-target');
 const puzzleImage = document.querySelector('.puzzle-source');
 let puzzleTargetXY = [0, 0];
-
 let isMouseDown = false;
 let currentTarget = 0;
-
 let layers = [
 	// 底層
 	{
@@ -17,6 +17,11 @@ let layers = [
 	// 上層
 	{},
 ];
+const getLocalStorage = () => JSON.parse(localStorage.getItem('layers'));
+const setLocalStorage = (val) => {
+	localStorage.setItem('layers', JSON.stringify(val));
+	layers = getLocalStorage();
+};
 
 //converts data to image:data string and pipes into new browser tab
 const exportImage = () => {
@@ -28,7 +33,7 @@ const exportImage = () => {
 
 //Reset state to empty
 const clearCanvas = () => {
-	layers = [{}, {}, {}];
+	setLocalStorage([{}, {}, {}]);
 	draw();
 };
 
@@ -45,13 +50,13 @@ const getCoords = (e) => {
 	const { x, y } = e.target.getBoundingClientRect();
 	const mouseX = e.clientX - x;
 	const mouseY = e.clientY - y;
-	return [Math.floor(mouseX / 32), Math.floor(mouseY / 32)];
+	return [Math.floor(mouseX / 16), Math.floor(mouseY / 16)];
 };
 
 const draw = () => {
 	const ctx = canvas.getContext('2d');
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	const size_of_crop = 32;
+	const size_of_crop = 16;
 
 	layers.forEach((layer) => {
 		Object.keys(layer).forEach((key) => {
@@ -62,12 +67,12 @@ const draw = () => {
 
 			ctx.drawImage(
 				puzzleImage,
-				puzzleX * 32,
-				puzzleY * 32,
+				puzzleX * size_of_crop,
+				puzzleY * size_of_crop,
 				size_of_crop,
 				size_of_crop,
-				positionX * 32,
-				positionY * 32,
+				positionX * size_of_crop,
+				positionY * size_of_crop,
 				size_of_crop,
 				size_of_crop,
 			);
@@ -84,6 +89,8 @@ const addTile = (mouseEvent) => {
 	} else {
 		layers[currentTarget][key] = [puzzleTargetXY[0], puzzleTargetXY[1]];
 	}
+
+	setLocalStorage(layers);
 	draw();
 };
 
@@ -107,8 +114,11 @@ canvas.addEventListener('mousemove', (event) => {
 //Select tile from the Tiles grid
 puzzleContainer.addEventListener('mousedown', (event) => {
 	puzzleTargetXY = getCoords(event);
-	puzzleTarget.style.left = puzzleTargetXY[0] * 32 + 'px';
-	puzzleTarget.style.top = puzzleTargetXY[1] * 32 + 'px';
+
+	puzzleTarget.style.width = 16 + 'px';
+	puzzleTarget.style.height = 16 + 'px';
+	puzzleTarget.style.left = puzzleTargetXY[0] * 16 + 'px';
+	puzzleTarget.style.top = puzzleTargetXY[1] * 16 + 'px';
 });
 
 document
@@ -129,11 +139,14 @@ document
 	.addEventListener('click', exportImage);
 
 puzzleImage.onload = function () {
+	if (!getLocalStorage) {
+		setLocalStorage([{}, {}, {}]);
+	} else {
+		layers = getLocalStorage();
+	}
 	draw();
 };
-const currentImage =
-	localStorage.getItem('image') ||
-	'https://assets.codepen.io/21542/TileEditorSpritesheet.2x_2.png';
+const currentImage = grassland_tiles;
 
 puzzleImage.src = currentImage;
 puzzleImage.setAttribute('crossOrigin', 'Anonymous');

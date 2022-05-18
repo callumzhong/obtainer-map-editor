@@ -28,8 +28,6 @@ img {
 	outline: 3px solid cyan;
 	left: 0;
 	top: 0;
-	width: 32px;
-	height: 32px;
 }
 
 .main {
@@ -50,9 +48,14 @@ img {
 	margin: 0 auto;
 }
 
+.canvas-container canvas {
+	zoom: 1;
+}
+
 .controller {
 	display: flex;
 	justify-content: space-between;
+	padding: 0 1rem;
 }
 .controller__layer {
 	list-style-type: none;

@@ -4,7 +4,7 @@
 	"browserslist": "> 0.5%, last 2 versions, not dead",
 	"source": "src/index.html",
 	"scripts": {
-		"start": "del docs /q && parcel --dist-dir ./docs --public-url ./",
+		"start": "del docs /q && parcel --dist-dir ./docs",
 		"build": "del docs /q && parcel build --dist-dir ./docs --public-url ./"
 	},
 	"devDependencies": {
